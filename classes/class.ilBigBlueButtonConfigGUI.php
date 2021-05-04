@@ -1,8 +1,10 @@
 <?php
 
+include_once("./Services/ActiveRecord/Fields/Converter/class.arBuilder.php");
 include_once("./Services/Component/classes/class.ilPluginConfigGUI.php");
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/bbb-api/bbb_api.php");
- 
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/models/class.arObjBBBConf.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/models/class.arObjBBBData.php");
 /**
  * BigBlueButton configuration class
  *
@@ -33,10 +35,15 @@ class ilBigBlueButtonConfigGUI extends ilPluginConfigGUI
 	function configure()
 	{
 		global $tpl;
-
 		$form = $this->initConfigurationForm();
 		$tpl->setContent($form->getHTML());
+		/*
+		$arBuilder = new arBuilder(new arMessage());
+		$arBuilder->generateDBUpdateForInstallation();
 		
+                $arConverter = new arConverter('rep_robj_xbbb_data', 'arObjBBBData');
+                $arConverter->downloadClassFile();
+		*/
 	}
 	
 	
@@ -48,9 +55,22 @@ class ilBigBlueButtonConfigGUI extends ilPluginConfigGUI
 	public function initConfigurationForm()
 	{
 		global $lng, $ilCtrl, $ilDB,$DIC;
-		/*$log=$DIC->logger()->root();*/
+		$log=$DIC->logger()->root();
 		 
 		$values = array();
+		/*
+		$values2 = arObjBBBConf::get;
+		*/
+
+                $result = arObjBBBConf::get();
+		if($result!=0){
+                	$values["svrpublicurl"] = $result[1]->getSvrpublicurl();
+                        $values["svrprivateurl"] = $result[1]->getSvrprivateurl();
+                        $values["svrsalt"] = $result[1]->getSvrsalt();
+                        $values["choose_recording"] = $result[1]->getChooseRecording();
+		}
+		/*
+		//$log->info("arObjBBBConf_firstobj". print_r($values2[1]->getSvrpublicurl(), true));
 		$result = $ilDB->query("SELECT * FROM rep_robj_xbbb_conf");
 		while ($record = $ilDB->fetchAssoc($result))
 		{
@@ -59,6 +79,7 @@ class ilBigBlueButtonConfigGUI extends ilPluginConfigGUI
 			$values["svrsalt"] = $record["svrsalt"];
 			$values["choose_recording"] = $record["choose_recording"];
 		}
+		*/
 
 		
 		$pl = $this->getPluginObject();
@@ -135,11 +156,21 @@ class ilBigBlueButtonConfigGUI extends ilPluginConfigGUI
 			$choose_recording = (int) $form->getInput("choose_recording");
 			
 			// check if data exisits decide to update or insert
-			$result = $ilDB->query("SELECT * FROM rep_robj_xbbb_conf");
-			$num = $ilDB->numRows($result);
-			if($num == 0){
+			$result = arObjBBBConf::get();
+			//$result = $ilDB->query("SELECT * FROM rep_robj_xbbb_conf");
+			//$num = $ilDB->numRows($result);
+			if(count($result) == 0){
 
-
+				
+				$arObjBBBConf = new arObjBBBConf();
+				$arObjBBBConf->seId(1);
+                                $arObjBBBConf->setSvrpublicurl($setPublicURL);
+                                $arObjBBBConf->setSvrprivateurl($setPrivateURL);
+                                $arObjBBBConf->setSvrsalt($setSalt);
+                                $arObjBBBConf->setChooseRecording($choose_recording);
+                                $arObjBBBConf->create();
+				
+				/*
 				$ilDB->manipulate("INSERT INTO rep_robj_xbbb_conf ".
 				"(id, svrpublicurl , svrprivateurl, svrsalt, choose_recording) VALUES (".
 				$ilDB->quote(1, "integer").",". // id
@@ -149,7 +180,17 @@ class ilBigBlueButtonConfigGUI extends ilPluginConfigGUI
 				$ilDB->quote($setSalt, "text").",". //salt
 				$ilDB->quote($choose_recording, "integer").
 				")");
+				*/
 			}else{
+                                
+                                $arObjBBBConf = new arObjBBBConf(1);
+                                $arObjBBBConf->setSvrpublicurl($setPublicURL);
+                                $arObjBBBConf->setSvrprivateurl($setPrivateURL);
+                                $arObjBBBConf->setSvrsalt($setSalt);
+                                $arObjBBBConf->setChooseRecording($choose_recording);
+				$arObjBBBConf->update();
+                                
+				/*
 				$ilDB->manipulate($up = "UPDATE rep_robj_xbbb_conf  SET ".
 				" svrpublicurl = ".$ilDB->quote($setPublicURL, "text").",".
 				" svrprivateurl = ".$ilDB->quote($setPublicURL, "text").",".
@@ -157,6 +198,7 @@ class ilBigBlueButtonConfigGUI extends ilPluginConfigGUI
 				" choose_recording = ".$ilDB->quote($choose_recording, "integer").",".
 				" WHERE id = ".$ilDB->quote(1, "integer")
 				);
+				*/
 			}
 			
 			ilUtil::sendSuccess($pl->txt("saving_invoked"), true);

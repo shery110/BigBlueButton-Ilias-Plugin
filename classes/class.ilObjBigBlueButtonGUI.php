@@ -248,6 +248,13 @@ class ilObjBigBlueButtonGUI extends ilObjectPluginGUI
 		global $tpl, $ilTabs, $ilUser, $ilCtrl, $ilDB;;
 
 		$values = array();
+                $result = arObjBBBConf::get();
+		if(count($result)!=0){
+                        $svrPublicURL = $result[1]->getSvrpublicurl();
+//                        $svrPublicPort = $record["svrpublicport"];
+		}
+
+		/*
 		$result = $ilDB->query("SELECT * FROM rep_robj_xbbb_conf");
 
 		while ($record = $ilDB->fetchAssoc($result))
@@ -255,6 +262,7 @@ class ilObjBigBlueButtonGUI extends ilObjectPluginGUI
 			$svrPublicURL = $record["svrpublicurl"];
 			$svrPublicPort = $record["svrpublicport"];
 		}
+		*/
 
 
 

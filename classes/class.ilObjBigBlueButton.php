@@ -1,4 +1,6 @@
 <?php
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/models/class.arObjBBBConf.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/models/class.arObjBBBData.php");
 /*
 	+-----------------------------------------------------------------------------+
 	| ILIAS open source                                                           |
@@ -65,6 +67,19 @@ class ilObjBigBlueButton extends ilObjectPlugin
 		$this->setMaxParticipants(1000);
 		$this->setSequence(1);
 		
+		
+		$arObjBBBData = new arObjBBBData();
+		$arObjBBBData->setIsOnline($this->getOnline());
+                $arObjBBBData->setId($this->getId());
+                $arObjBBBData->setAttendeepwd($this->getAttendeePwd());
+                $arObjBBBData->setModeratorpwd($this->getModeratorPwd());
+                $arObjBBBData->setWelcometext($this->getWelcomeText());
+                $arObjBBBData->setMaxparticipants($this->getMaxParticipants());
+                $arObjBBBData->setSequence($this->getSequence());
+                $arObjBBBData->create();
+		
+
+		/*
 		$ilDB->manipulate("INSERT INTO rep_robj_xbbb_data ".
         	"(id, is_online, attendeepwd, moderatorpwd, welcometext, maxparticipants, sequence) VALUES (".
             $ilDB->quote($this->getId(), "integer").",".
@@ -75,8 +90,17 @@ class ilObjBigBlueButton extends ilObjectPlugin
             $ilDB->quote($this->getMaxParticipants(),"text").",".
             $ilDB->quote($this->getSequence(),"integer").
             ")");
-                    
+                  */
+		
 
+
+		$result = arObjBBBConf::get();
+		if(count($result)!=0){
+	                $this->setSvrPublicURL($result[1]->getSvrpublicurl());
+                        $this->setSvrPrivateURL($result[1]->getSvrprivateurl());
+                        $this->setSvrSalt($result[1]->getSvrsalt());
+		}
+		/*
 		$result = $ilDB->query("SELECT * FROM rep_robj_xbbb_conf");
         
 		while ($record = $ilDB->fetchAssoc($result))
@@ -88,6 +112,7 @@ class ilObjBigBlueButton extends ilObjectPlugin
         	$this->setSvrSalt($record["svrsalt"]);
       
         }
+		*/
     }
 	
 	/**
@@ -97,6 +122,16 @@ class ilObjBigBlueButton extends ilObjectPlugin
 	{
 		global $ilDB;
 		
+		$arObjBBBData = new arObjBBBData($this->getId());
+		$this->setOnline($arObjBBBData->getIsOnline());    
+                $this->setAttendeePwd($arObjBBBData->getAttendeepwd());
+                $this->setModeratorPwd($arObjBBBData->getModeratorpwd());   
+                $this->setWelcomeText($arObjBBBData->getWelcometext());     
+                $this->setMaxParticipants($arObjBBBData->getMaxparticipants()); 
+                $this->setSequence($arObjBBBData->getSequence());   
+		
+
+		/*
 		$set = $ilDB->query("SELECT * FROM rep_robj_xbbb_data ".
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
 			);
@@ -109,11 +144,24 @@ class ilObjBigBlueButton extends ilObjectPlugin
 			$this->setMaxParticipants($rec["maxparticipants"]); 
 			$this->setSequence($rec["sequence"]); 	
 		}
+		*/
+
+                //}
+                
+                $result = arObjBBBConf::get();
+                if(count($result)!=0){
+                        $this->setSvrPublicURL($result[1]->getSvrpublicurl());
+                        $this->setSvrPrivateURL($result[1]->getSvrprivateurl());
+                        $this->setSvrSalt($result[1]->getSvrsalt());
+                }
+                
 		
+		/*
 		$result = $ilDB->query("SELECT * FROM rep_robj_xbbb_conf");
         
 		while ($record = $ilDB->fetchAssoc($result))
         {
+
        		$this->setSvrPublicURL($record["svrpublicurl"]);
        		//$this->setSvrPublicPort($record["svrpublicport"]);
       		$this->setSvrPrivateURL($record["svrprivateurl"]);
@@ -121,6 +169,7 @@ class ilObjBigBlueButton extends ilObjectPlugin
         	$this->setSvrSalt($record["svrsalt"]);
       
         }
+		*/
 		
 	}
 	
@@ -144,6 +193,20 @@ class ilObjBigBlueButton extends ilObjectPlugin
 		$rmNum = $this->WSDL->Openmeetings_createroomwithmod($this->getsvrUsername(),$this->getsvrPassword(), $this->getrmComment() , 2 , 'ILIAS ROOM' , 20 , true , false , false , 0 , 1);
 		*/
 		
+
+                
+                $arObjBBBData = new arObjBBBData($this->getId());
+                $arObjBBBData->setIsOnline($this->getOnline());
+                $arObjBBBData->setAttendeepwd($this->getAttendeePwd());
+                $arObjBBBData->setModeratorpwd($this->getModeratorPwd());
+                $arObjBBBData->setWelcometext($this->getWelcomeText());
+                $arObjBBBData->setMaxparticipants($this->getMaxParticipants());
+                $arObjBBBData->setSequence($this->getSequence());
+                $arObjBBBData->update();
+                
+
+
+		/*
 		$ilDB->manipulate($up = "UPDATE rep_robj_xbbb_data SET ".
 			" is_online = ".$ilDB->quote($this->getOnline(), "integer").",".
 			" attendeepwd = ".$ilDB->quote($this->getAttendeePwd(), "text").",".
@@ -153,7 +216,7 @@ class ilObjBigBlueButton extends ilObjectPlugin
 		    " sequence = ".$ilDB->quote($this->getSequence(), "integer").
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
 			);
-			
+		*/
 		
 						
 	}
@@ -165,10 +228,13 @@ class ilObjBigBlueButton extends ilObjectPlugin
 	{
 		global $ilDB;
 		
+                $arObjBBBData = new arObjBBBData($this->getId());
+		$arObjBBBData->delete();
+		/*
 		$ilDB->manipulate("DELETE FROM rep_robj_xbbb_data WHERE ".
 			" id = ".$ilDB->quote($this->getId(), "integer")
 			);
-		
+		*/
 	}
 	
 	/**

@@ -22,7 +22,7 @@
 */
 
 include_once("./Services/Repository/classes/class.ilObjectPluginAccess.php");
-
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/models/class.arObjBBBData.php");
 /**
 * Access/Condition checking for BigBlueButton object
 *
@@ -78,12 +78,15 @@ class ilObjBigBlueButtonAccess extends ilObjectPluginAccess
 	static function checkOnline($a_id)
 	{
 		global $ilDB;
-		
+                $arObjBBBData = new arObjBBBData($a_id);
+		return (boolean) $arObjBBBData->getIsOnline();
+		/*
 		$set = $ilDB->query("SELECT is_online FROM rep_robj_xbbb_data ".
 			" WHERE id = ".$ilDB->quote($a_id, "integer")
 			);
 		$rec  = $ilDB->fetchAssoc($set);
 		return (boolean) $rec["is_online"];
+		*/
 	}
 	
 }
