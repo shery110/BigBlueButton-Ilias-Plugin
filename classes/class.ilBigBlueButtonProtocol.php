@@ -52,7 +52,7 @@ class ilBigBlueButtonProtocol
 	*/
 
 	public function __construct($svrPublicURL, $svrSalt){
-		$this->bbb = new \BigBlueButton\BigBlueButton($svrPublicURL, $svrSalt);
+		$this->bbb = new BigBlueButton\BigBlueButton\BigBlueButton($svrPublicURL, $svrSalt);
 
 	}
 	
