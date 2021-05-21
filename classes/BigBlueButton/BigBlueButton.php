@@ -17,7 +17,7 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton;
+//namespace BigBlueButton;
 
 use BigBlueButton\Core\ApiMethod;
 use BigBlueButton\Exceptions\BadResponseException;
@@ -81,11 +81,12 @@ include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/SetConfigXMLResponse.php");
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/UpdateRecordingsResponse.php");
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Util/UrlBuilder.php");
+include_once("./Services/Http/classes/class.ilProxySettings.php");
 /**
  * Class BigBlueButton
  * @package BigBlueButton
  */
-class BigBlueButton
+class BigBlueButton2
 {
     protected $securitySecret;
     protected $bbbServerBaseUrl;
@@ -488,6 +489,9 @@ class BigBlueButton
      */
     private function processXmlResponse($url, $payload = '', $contentType = 'application/xml')
     {
+	                global $DIC;
+                $log=$DIC->logger()->root();
+	$log->info("test_url: ".$url);
         if (extension_loaded('curl')) {
             $ch = curl_init();
             if (!$ch) {
@@ -499,43 +503,68 @@ class BigBlueButton
             $cookiefile     = tmpfile();
             $cookiefilepath = stream_get_meta_data($cookiefile)['uri'];
 
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-            curl_setopt($ch, CURLOPT_ENCODING, 'UTF-8');
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+           // curl_setopt($ch, CURLOPT_ENCODING, 'UTF-8');
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefilepath);
-            curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefilepath);
-            if (!empty($payload)) {
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    'Content-type: ' . $contentType,
-                    'Content-length: ' . mb_strlen($payload),
-                ]);
-            }
-            $data = curl_exec($ch);
-            if ($data === false) {
-                throw new \RuntimeException('Unhandled curl error: ' . curl_error($ch));
-            }
-            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if ($httpcode < 200 || $httpcode >= 300) {
-                throw new BadResponseException('Bad response, HTTP code: ' . $httpcode);
-            }
-            curl_close($ch);
+           // curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefilepath);
+           // curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefilepath);
 
-            $cookies = file_get_contents($cookiefilepath);
-            if (strpos($cookies, 'JSESSIONID') !== false) {
-                preg_match('/(?:JSESSIONID\s*)(?<JSESSIONID>.*)/', $cookies, $output_array);
-                $this->setJSessionId($output_array['JSESSIONID']);
-            }
+                //Add Proxy
+     //           require_once('./Services/Http/classes/class.ilProxySettings.php');
+                if(ilProxySettings::_getInstance()->isActive())
+                {
+                        $proxyHost = ilProxySettings::_getInstance()->getHost();
+                        $proxyPort = ilProxySettings::_getInstance()->getPort();
+                        $proxyURL = $proxyHost . ":" . $proxyPort;
+                        curl_setopt($ch, CURLOPT_PROXY, $proxyURL);
+                }
+                
+                $data = curl_exec( $ch );
+                curl_close( $ch );
+                
+                if($data){
+		$log->info("return data: ");
+                        return (new SimpleXMLElement($data));
+		}
+                else{
+                $log->info("return false: ");
+                        return false;
+}
+        	return (new SimpleXMLElement($data)); 
+	}
 
-            return new SimpleXMLElement($data);
-        } else {
-            throw new \RuntimeException('Post XML data set but curl PHP module is not installed or not enabled.');
-        }
+         //   if (!empty($payload)) {
+         //       curl_setopt($ch, CURLOPT_HEADER, 0);
+         //       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+         //       curl_setopt($ch, CURLOPT_POST, 1);
+         //       curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+         //       curl_setopt($ch, CURLOPT_HTTPHEADER, [
+         //           'Content-type: ' . $contentType,
+         //           'Content-length: ' . mb_strlen($payload),
+         //       ]);
+         //   }
+         //   $data = curl_exec($ch);
+         //   if ($data === false) {
+         //       throw new \RuntimeException('Unhandled curl error: ' . curl_error($ch));
+          //  }
+          //  $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+          //  if ($httpcode < 200 || $httpcode >= 300) {
+          //      throw new BadResponseException('Bad response, HTTP code: ' . $httpcode);
+          //  }
+          //  curl_close($ch);
+
+          //  $cookies = file_get_contents($cookiefilepath);
+          //  if (strpos($cookies, 'JSESSIONID') !== false) {
+          //      preg_match('/(?:JSESSIONID\s*)(?<JSESSIONID>.*)/', $cookies, $output_array);
+          //      $this->setJSessionId($output_array['JSESSIONID']);
+          //  }
+
+          //  return new SimpleXMLElement($data);
+       // } else {
+       //     throw new \RuntimeException('Post XML data set but curl PHP module is not installed or not enabled.');
+       // }
     }
 }

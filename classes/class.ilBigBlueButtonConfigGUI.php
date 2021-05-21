@@ -150,14 +150,16 @@ class ilBigBlueButtonConfigGUI extends ilPluginConfigGUI
 				$ilDB->quote($choose_recording, "integer").
 				")");
 			}else{
-				$ilDB->manipulate($up = "UPDATE rep_robj_xbbb_conf  SET ".
-				" svrpublicurl = ".$ilDB->quote($setPublicURL, "text").",".
-				" svrprivateurl = ".$ilDB->quote($setPublicURL, "text").",".
-				" svrsalt = ".$ilDB->quote($setSalt, "text"). ",".
-				" choose_recording = ".$ilDB->quote($choose_recording, "integer").",".
-				" WHERE id = ".$ilDB->quote(1, "integer")
-				);
+
+
 			}
+                                $ilDB->manipulate($up = "UPDATE rep_robj_xbbb_conf  SET ".
+                                " svrpublicurl = ".$ilDB->quote($setPublicURL, "text").",".
+                                " svrprivateurl = ".$ilDB->quote($setPublicURL, "text").",".
+                                " svrsalt = ".$ilDB->quote($setSalt, "text"). ",".
+                                " choose_recording = ".$ilDB->quote($choose_recording, "integer").",".
+                                " WHERE id = ".$ilDB->quote(1, "integer")
+                                );
 			
 			ilUtil::sendSuccess($pl->txt("saving_invoked"), true);
 			$ilCtrl->redirect($this, "configure");

@@ -53,11 +53,11 @@ class ilBigBlueButtonProtocol
 	*/
 
 	public function __construct($svrPublicURL, $svrSalt){
-<<<<<<< HEAD
-		$this->bbb = new BigBlueButton\BigBlueButton\BigBlueButton($svrPublicURL, $svrSalt);
-=======
-		$this->bbb = new BigBlueButton\BigBlueButton($svrPublicURL, $svrSalt);
->>>>>>> edd5fb2... include code udpated
+		global $DIC;
+		$log=$DIC->logger()->root();
+		$svrPublicURL = "https://bbb-dev.minervis.com/bigbluebutton/";
+		$log->info("svrPublicURL: ".$svrPublicURL);
+		$this->bbb = new BigBlueButton2($svrPublicURL, $svrSalt);
 
 	}
 	
