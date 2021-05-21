@@ -1,0 +1,36 @@
+{VAL_1}
+
+
+
+<script type="text/javascript">
+	il.Util.addOnLoad(
+		function()
+		{
+                    
+			var isMeetingRunning={isMeetingRunning};
+			if(isMeetingRunning){
+				$('#openClassLink').show();
+				$('#classNotStarted').hide();
+			}else{
+				$('#openClassLink').hide();
+				$('#classNotStarted').show();
+			}
+                        
+                        var isMeetingRecorded={isMeetingRecorded};
+			if(isMeetingRecorded){
+				$('#isMeetingRecorded').show();
+			}else{
+				$('#isMeetingRecorded').hide();
+			}
+                        
+		});
+</script>
+
+<button id="openClassLink" class="btn btn-default" type="button" onclick="window.open('{bbbURL}')">{clickToOpenClass}</button>
+
+<div id="classNotStarted">
+{classNotStartedText}
+</div>
+<div id="isMeetingRecorded">{meetingRecordedMessage}</div>
+
+

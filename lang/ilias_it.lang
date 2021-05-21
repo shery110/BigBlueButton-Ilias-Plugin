@@ -1,0 +1,54 @@
+// 
+// Italian Language File for Bigbluebutton Plugin
+//
+<!-- language file start -->
+obj_xbbb#:#Bigbluebutton
+objs_xbbb#:#Bigbluebutton Virtual Classrooms
+obj_xbbb_duplicate#:#Copia 
+objs_xbbb_duplicate#:#Copia Bigbluebutton Virtual Classroom
+obj_xbbb_select#:#Seleziona Bigbluebutton Virtual Classroom
+xbbb_add#:#Aggiungi Bigbluebutton Virtual Classroom
+xbbb_new#:#Aggiungi una Nuova Bigbluebutton Virtual Classroom
+xbbb_read#:#Accesso in Lettura a Bigbluebutton Virtual Classroom
+xbbb_write#:#Modifica Bigbluebutton Virtual Classroom
+xbbb_delete#:#Elimina Bigbluebutton Virtual Classroom
+xbbb_visible#:#Bigbluebutton Virtual Classroom è visibile
+xbbb_edit_permission#:#Cambia le impostazioni sui permessi
+BigBlueButton_plugin_configuration#:#Proprietà di Connessione a Bigbluebutton
+crs_create_xbbb#:#Crea Bigbluebutton Virtual Classroom
+grp_create_xbbb#:#Crea Bigbluebutton Virtual Classroom
+fold_create_xbbb#:#Crea Bigbluebutton Virtual Classroom
+root_create_xbbb#:#Crea Bigbluebutton Virtual Classroom
+cat_create_xbbb#:#Crea Bigbluebutton Virtual Classroom
+content#:#Content#:#Crea Bigbluebutton Virtual Classroom
+class_not_started_yet#:#Questa classe non è ancora iniziata. Riprova più tardi.
+click_to_open_class#:#Clicca qui per aprire la Virtual Classroom in una nuova finestra.
+no_class_running#:#Non c'è nessuna classe in corso,
+start_class#:#clicca qui per iniziare una classe.
+class_running#:#C'è una classe in corso,
+end_class#:#clicca qui per terminare una classe.
+end_class_comment#:#(Nota che tutti i partecipanti ancora connessi saranno espulsi).
+new_class_created#:#E' stata creata una nuova Virtual Clasroom che verrà aperta in una nuova finestra.
+new_class_created_warning#:#DEVI entrare nella classe PRIMA degli iscritti. Nessuno può accedere senza un moderatore.
+new_class_created_join_manual#:#Clicca qui per entrare nella tua Virtual Classroom se non sia apre automaticamente.
+class_ended#:#La classe è stata chiusa.
+publicurl#:#URL Pubblico (es. https://my.bbb-server.com:9005/bigbluebutton/)
+publicport#:#Porta Pubblica (es. 80)
+privateurl#:#URL Privato (es. http://192.168.1.100/bigbluebutton/)
+privateport#:#Porta Privata (es. 8080)
+salt#:#Security Salt
+edit#:#Modifica
+properties#:Proprietà
+title#:#Titolo
+description#:#Descrizione
+welcometext#:#Testo di benvenuto
+Date_Title#:#data
+Link_Title#:#link
+DeleteLink_Title#:#eliminare la registrazione
+Length_Title#:#lunghezza
+Headline_Recordings#:#registrazioni precedenti
+checkbox_record_meeting#:#sessione di registrazione
+meetingRecordedMessage#:#La sessione corrente viene registrato
+saving_invoked#:#saved
+choose_recording#:#Allow recordings globally
+choose_recording_info#:#Activate this option if you want users with write permissions to select 'Allow capturing' under Settings. Since the URL for the recording is known to be distributed to unintended persons, this option should not be activated in most cases.

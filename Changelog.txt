@@ -1,0 +1,51 @@
+BigBLueButton-ILIAS Plugin Changelog
+------------------------------------
+
+2011-05-02 Version 0.0.1 
+
+	- First version available in the "Release early, release often" sense.
+	- Provides a Bigbluebutton Virtual Class ILIAS Repository Object.
+	- Moderators(users with write permission over the object) can start and end the Virtual Classroom.
+	- Attendees(users with read permission over the object) can join a class that has started.
+	
+
+2011-05-10
+
+	- FIXED Moderator permission at BBB: users with write permission were not moderators.
+	- FIXED Added import form from the course creation GUI. (Thanks Graham).
+	- ADDED New italian translation. (Thanks Graham).
+	- CHANGED Now when a moderator creates a Virtual Classroom the attendees can enter the classroom and they dont have to wait for the moderator to enter.
+
+2013-02-21 Version 0.0.3
+    
+        - SUPPORT for ILIAS 4.3
+
+2014-02-26 Version 1.0.1
+        - Add Support for Playback an Recording of Meetings
+
+2015-05-27 Version 1.0.4
+	- Support for ILIAS 5.0
+
+2016-02-10 Version 1.0.6
+	- fixed some Javascript problems
+	- Support ILIAS 5.1
+
+2019-11-06 Version 1.0.9
+	- Update doc
+	- Fixed PHP Errors for PHP Versions 7.2+
+	- Support for ILIAS v5.3.0
+2020-7-06 Version 1.0.10
+	- Fixed Server url issue
+	-support for ILIAS6
+
+2020-8-31 Version 1.0.12
+	- Display a message during configurations to inform about the server reachability
+	- support for ILIAS6.2 and ILIAS6.3
+	- improve the hint message on the configuration form
+	- Shorten the name of the plugin from "Bigbluebutton Virtual Classroom" to "Bigbluebutton"
+2021 Version 1.0.14
+	- conffigure globally the option to choose whether recordings should be taken or not
+	- improve German translations
+2021 Version 1.0.15
+	- Add commas (a fix to the db error)
+	- update version
