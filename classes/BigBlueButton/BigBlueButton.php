@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace BigBlueButton;
 
 use BigBlueButton\Core\ApiMethod;
@@ -50,6 +51,36 @@ use BigBlueButton\Responses\UpdateRecordingsResponse;
 use BigBlueButton\Util\UrlBuilder;
 use SimpleXMLElement;
 
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Core/ApiMethod.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Exceptions/BadResponseException.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/CreateMeetingParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/DeleteRecordingsParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/EndMeetingParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/GetMeetingInfoParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/GetRecordingsParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/HooksCreateParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/HooksDestroyParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/IsMeetingRunningParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/JoinMeetingParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/PublishRecordingsParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/UpdateRecordingsParameters.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/ApiVersionResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/CreateMeetingResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/DeleteRecordingsResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/EndMeetingResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/GetDefaultConfigXMLResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/GetMeetingInfoResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/GetMeetingsResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/GetRecordingsResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/HooksCreateResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/HooksDestroyResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/HooksListResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/IsMeetingRunningResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/JoinMeetingResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/PublishRecordingsResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/SetConfigXMLResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/UpdateRecordingsResponse.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Util/UrlBuilder.php");
 /**
  * Class BigBlueButton
  * @package BigBlueButton

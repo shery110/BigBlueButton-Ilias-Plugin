@@ -17,7 +17,7 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 namespace BigBlueButton\Parameters;
-
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Parameters/MetaParameters.php");
 /**
  * Class GetRecordingsParameters
  * @package BigBlueButton\Parameters

@@ -17,7 +17,7 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 namespace BigBlueButton\Responses;
-
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/Responses/BaseResponse.php");
 /**
  * Class GetDefaultConfigXMLUrlResponse
  * @package BigBlueButton\Responses

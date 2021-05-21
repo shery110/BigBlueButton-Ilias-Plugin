@@ -1,6 +1,7 @@
 <?php
 
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/bbb-api/bbb_api.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/BigBlueButton/classes/BigBlueButton/BigBlueButton.php");
 
 /**
 * BigBlueButton comunication helper class
@@ -52,7 +53,11 @@ class ilBigBlueButtonProtocol
 	*/
 
 	public function __construct($svrPublicURL, $svrSalt){
+<<<<<<< HEAD
 		$this->bbb = new BigBlueButton\BigBlueButton\BigBlueButton($svrPublicURL, $svrSalt);
+=======
+		$this->bbb = new BigBlueButton\BigBlueButton($svrPublicURL, $svrSalt);
+>>>>>>> edd5fb2... include code udpated
 
 	}
 	
